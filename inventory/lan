@@ -1,0 +1,9 @@
+[zabbix]
+nomad-server.lan
+nomad-client.lan
+minio.lan
+openmediavault.lan
+vps
+
+[zabbix:vars]
+zabbix_host = zabbix.lan
