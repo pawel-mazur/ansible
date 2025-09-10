@@ -5,7 +5,7 @@
 Bootstrap and configure ansible user
 
 ```
-ansible-playbook -k -l server users.yaml
+ansible-playbook -kK -l server users.yaml
 ```
 
 ## Zabbix

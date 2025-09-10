@@ -1,4 +1,5 @@
 [zabbix]
+nomad.lan
 nomad-server.lan
 nomad-client.lan
 minio.lan
@@ -7,3 +8,9 @@ vps
 
 [zabbix:vars]
 zabbix_host = zabbix.lan
+
+[nomad]
+nomad.lan
+nomad-server.lan
+nomad-client.lan
+;vps
