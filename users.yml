@@ -23,3 +23,5 @@
         name: debian
         user: debian
         commands: ALL
+
+    # TODO: disable user password login
