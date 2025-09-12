@@ -1,0 +1,27 @@
+- name: Download Tailscale GPG Key
+  ansible.builtin.uri:
+    dest: /usr/share/keyrings/tailscale-archive-keyring.gpg
+    url: https://pkgs.tailscale.com/stable/debian/bookworm.noarmor.gpg
+
+- name: Add Tailscale repository
+  ansible.builtin.uri:
+    dest: /etc/apt/sources.list.d/tailscale.list
+    url: https://pkgs.tailscale.com/stable/debian/bookworm.tailscale-keyring.list
+
+- name: Install Tailscale
+  ansible.builtin.apt:
+    name: tailscale
+    update_cache: true
+    state: present
+
+- name: Create bash completion directory
+  ansible.builtin.file:
+    path: /etc/bash_completion.d
+    state: directory
+    group: root
+    owner: root
+
+- name: Configure completion
+  ansible.builtin.shell:
+    cmd: tailscale completion bash > /etc/bash_completion.d/tailscale
+    creates: /etc/bash_completion.d/tailscale

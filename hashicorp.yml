@@ -1,0 +1,7 @@
+---
+
+- name: Install nomad
+  hosts: nomad
+  become: true
+  roles:
+    - hashicorp

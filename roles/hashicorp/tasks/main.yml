@@ -1,0 +1,58 @@
+- name: Install gpg
+  ansible.builtin.apt:
+    name: gpg, coreutils
+    state: present
+
+- name: Download keyring
+  ansible.builtin.get_url:
+    url: https://apt.releases.hashicorp.com/gpg
+    dest: /usr/share/keyrings/hashicorp-archive-keyring.asc
+
+- name: Configure repository
+  ansible.builtin.apt_repository:
+    filename: hashicorp
+    repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/hashicorp-archive-keyring.asc] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
+    update_cache: yes
+    state: present
+
+- name: Install nomad, consul, volt
+  ansible.builtin.apt:
+    name: nomad, consul, vault
+    update_cache: yes
+    state: present
+
+- name: Completion nomad
+  ansible.builtin.lineinfile:
+    path: /etc/bash_completion.d/nomad
+    line: complete -C /usr/bin/nomad nomad
+    create: true
+
+- name: Completion consul
+  ansible.builtin.lineinfile:
+    path: /etc/bash_completion.d/consul
+    line: complete -C /usr/bin/consul consul
+    create: true
+
+- name: Completion vault
+  ansible.builtin.lineinfile:
+    path: /etc/bash_completion.d/vault
+    line: complete -C /usr/bin/vault vault
+    create: true
+
+- name: Enable nomad service
+  ansible.builtin.service:
+    name: nomad
+    enabled: true
+    state: started
+
+- name: Enable consul service
+  ansible.builtin.service:
+    name: consul
+    enabled: true
+    state: started
+
+- name: Enable vault service
+  ansible.builtin.service:
+    name: vault
+    enabled: true
+    state: started
