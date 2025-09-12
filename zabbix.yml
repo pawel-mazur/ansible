@@ -1,37 +1,7 @@
 ---
 
-- name: Install zabbix agent
+- name: Install and configure zabbix agent
   hosts: zabbix
   become: true
-  tasks:
-    - name: Install zabbix-agent2
-      ansible.builtin.apt:
-        name: zabbix-agent2
-        state: present
-
-    - name: Set server config
-      ansible.builtin.replace:
-        path: /etc/zabbix/zabbix_agent2.conf
-        regexp: "^Server=127.0.0.1$"
-        replace: "Server={{ zabbix_host }}"
-      notify: Restart zabbix
-
-    - name: Set server active config
-      ansible.builtin.replace:
-        path: /etc/zabbix/zabbix_agent2.conf
-        regexp: "^ServerActive=127.0.0.1$"
-        replace: "ServerActive={{ zabbix_host }}"
-      notify: Restart zabbix
-
-    - name: Set hostname config
-      ansible.builtin.replace:
-        path: /etc/zabbix/zabbix_agent2.conf
-        regexp: "^Hostname=Zabbix server$"
-        replace: "Hostname={{ansible_host}}"
-      notify: Restart zabbix
-
-  handlers:
-    - name: Restart zabbix
-      ansible.builtin.service:
-        name: zabbix-agent2
-        state: restarted
+  roles:
+    - zabbix
