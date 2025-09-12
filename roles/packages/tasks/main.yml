@@ -1,4 +1,4 @@
 - name: Install common packages
-  ansible.builtin.package:
-    name: vim, mc, ncdu
+  ansible.builtin.apt:
+    name: vim, mc, ncdu, gpg, coreutils
     update_cache: true

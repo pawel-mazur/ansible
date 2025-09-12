@@ -4,4 +4,5 @@
   hosts: nomad
   become: true
   roles:
+    - docker
     - hashicorp
