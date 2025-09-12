@@ -1,6 +1,0 @@
----
-
-- name: Boostrap user
-  hosts: all
-  roles:
-    - users

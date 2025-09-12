@@ -1,5 +1,11 @@
 ---
 
+- name: Boostrap user
+  hosts: all
+  become: true
+  roles:
+    - users
+
 - name: Install packages
   hosts: all
   become: true
